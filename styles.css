@@ -1,0 +1,74 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background-color: #f0f2f5;
+  color: #333;
+}
+header {
+  background-color: #1a1a2e;
+  color: white;
+  padding: 24px 20px;
+  text-align: center;
+}
+main {
+  max-width: 860px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+#controles {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+button {
+  padding: 10px 20px;
+  background-color: #1a1a2e;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95em;
+}
+button:hover { background-color: #16213e; }
+#lista-estudiantes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 30px;
+}
+.tarjeta {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+.tarjeta h3 { margin: 0 0 8px; color: #1a1a2e; }
+.tarjeta p { margin: 4px 0; font-size: 0.95em; }
+.aprobado { border-left: 4px solid #27ae60; }
+.reprobado { border-left: 4px solid #e74c3c; }
+#resultado-promedio {
+  background-color: white;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #1a1a2e;
+  display: none;
+}
+#formulario {
+  background-color: white;
+  border-radius: 8px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+#formulario h2 { margin: 0 0 4px; color: #1a1a2e; }
+input {
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1em;
+}

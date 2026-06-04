@@ -1,15 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="es">
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JavaScript</title>
-</head>
-<body>
-    <h1>JavaScript</h1>
-    <!-- Prueba
-    <input type="button" value="Agregar texto" id="btn">
-    <div id="container"></div>-->
-</body>
-<script src="script.js"></script>
+    <title>Gestor de Estudiantes</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header>
+      <h1>Gestor de Estudiantes</h1>
+    </header>
+    <main>
+      <section id="controles">
+        <button id="btn-todos">Mostrar todos</button>
+        <button id="btn-aprobados">Solo aprobados</button>
+        <button id="btn-reprobados">Solo reprobados</button>
+        <button id="btn-promedio">Ver promedio general</button>
+      </section>
+      <section id="resultado-promedio"></section>
+      <section id="lista-estudiantes"></section>
+      <section id="formulario">
+        <h2>Agregar estudiante</h2>
+        <input type="text" id="input-nombre" placeholder="Nombre del estudiante">
+        <input type="number" id="input-nota" placeholder="Nota (0 - 100)">
+        <button id="btn-agregar">Agregar</button>
+      </section>
+    </main>
+    <footer>
+      <p>Clase de JavaScript Moderno</p>
+    </footer>
+    <script src="app.js"></script>
+  </body>
 </html>

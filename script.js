@@ -23,31 +23,61 @@
 // console.log(apellido);
 
 /* <------------- Objetos de JS ----------------->*/
-const persona = {
-    nombre: "Axel",
-    apellidos: "Villalobos Garcia",
-    edad: 18,
-    apodos: [
-        "Larry",
-        "Villa de los lobos",
-        "Villa"
-    ],
-    saludar: () => console.log(`Hola! Soy ${persona.nombre}`)
-};
+// const persona = {
+//     nombre: "Axel",
+//     apellidos: "Villalobos Garcia",
+//     edad: 18,
+//     apodos: [
+//         "Larry",
+//         "Villa de los lobos",
+//         "Villa"
+//     ],
+//     saludar: () => console.log(`Hola! Soy ${persona.nombre}`)
+// };
 
-persona.saludar();
+// persona.saludar();
 
-const listaNumeros = [1, 2, 3, 4, 5, 6];
-console.log(listaNumeros);
+// const listaNumeros = [1, 2, 3, 4, 5, 6];
+// console.log(listaNumeros);
 
-let temp = listaNumeros[0];
-listaNumeros[0] = listaNumeros[3];
-listaNumeros[3] = temp;
+// let temp = listaNumeros[0];
+// listaNumeros[0] = listaNumeros[3];
+// listaNumeros[3] = temp;
 
-console.log(listaNumeros);
+// console.log(listaNumeros);
 
-const nuevaLista = listaNumeros;
-nuevaLista.map(numero => {
-    return { valor: numero}
-});
-console.log(nuevaLista);
+// const nuevaLista = listaNumeros;
+// nuevaLista.map(numero => {
+//     return { valor: numero}
+// });
+// console.log(nuevaLista);
+
+/* <--------------- Método Filter -------------> */
+
+const personas = [
+    {
+        nombre: "Axel",
+        apellidos: "Villalobos Garcia",
+        edad: 16
+    },
+    {
+        nombre: "Elias",
+        apellidos: "Cruz Santana",
+        edad: 12
+    },
+    {
+        nombre: "Brandon",
+        apellidos: "Sanchez Perez",
+        edad: 18
+    }
+];
+const personasMayores = personas.filter(persona => persona.edad > 17);
+console.log(personasMayores);
+
+/* <---------------- Funcion reduce --------------->*/
+
+const numerosY = [3, 6, 9, 12, 16];
+const numerosAcumulados = numerosY.reduce((persistentVar, num) => 
+        persistentVar + num, 0
+);
+console.log(numerosAcumulados);
