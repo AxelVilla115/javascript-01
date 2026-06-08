@@ -14,6 +14,8 @@ const estudianteX = {
     nota: 95
 }
 
+let vista = 0;
+
 //Referencias al DOM
 const seccionEstudiantes = document.getElementById("lista-estudiantes");
 const seccionPromedio = document.getElementById("resultado-promedio");
@@ -87,17 +89,25 @@ btnAprobados.addEventListener("click", () => {
     renderizarLista(listaEstudiantes.filter(estudiante => 
         estudiante.nota > 60
     ));
+    vista = 1;
+    actualizarBtns(listaBtnsEliminar);
 });
 
 btnReprobados.addEventListener("click", () => {
     renderizarLista(listaEstudiantes.filter(estudiante => 
         estudiante.nota < 61
     ));
+    vista = 2;
+    actualizarBtns(listaBtnsEliminar);
 });
 
 btnPromedio.addEventListener("click", () => {
-    seccionPromedio.style.display = "block";
     const promedioGeneral = calcularPromedio(listaEstudiantes);
+    if (isNaN(promedioGeneral)) {
+        alert("No hay suficientes alumnos para obtener un promedio")
+        return;
+    }
+    seccionPromedio.style.display = "block";
     renderizarPromedio(promedioGeneral);
 });
 
@@ -126,7 +136,6 @@ btnAgregar.addEventListener("click", () => {
     listaEstudiantes.push(nuevoEstudiante);
     listaBtnsEliminar = document.getElementsByClassName("delete")
     renderizarLista(listaEstudiantes);
-    actualizarBtns(listaBtnsEliminar);
 });
 
 const actualizarBtns = lista => {
@@ -136,9 +145,15 @@ const actualizarBtns = lista => {
             const estudiantesRestantes = listaEstudiantes.filter(estudiante => {
                 const btnId = parseInt(btn.getAttribute("id").match(/()\d+/g));
                 return estudiante.id != btnId;
-            });
+            }); 
             listaEstudiantes = estudiantesRestantes;
-            renderizarLista(listaEstudiantes);
+            switch (vista) {
+                case 0: renderizarLista(listaEstudiantes);
+                break;
+                case 1: renderizarLista(listaEstudiantes.filter(estudiante => estudiante.nota > 60));
+                break;
+                case 2: renderizarLista(listaEstudiantes.filter(estudiante => estudiante.nota < 61));
+            };
             actualizarBtns(listaBtnsEliminar);
         });
     };
