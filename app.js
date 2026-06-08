@@ -1,11 +1,11 @@
 //Declaraciones
-const listaEstudiantes = [
-  { id: 1, nombre: "Ana Lopez",    nota: 90 },
-  { id: 2, nombre: "Carlos Ruiz",  nota: 55 },
-  { id: 3, nombre: "Maria Torres", nota: 78 },
-  { id: 4, nombre: "Luis Mendez",  nota: 45 },
-  { id: 5, nombre: "Sofia Rios",   nota: 88 },
-  { id: 6, nombre: "Pedro Soto",   nota: 62 },
+let listaEstudiantes = [
+  { id: 0, nombre: "Ana Lopez",    nota: 90 },
+  { id: 1, nombre: "Carlos Ruiz",  nota: 55 },
+  { id: 2, nombre: "Maria Torres", nota: 78 },
+  { id: 3, nombre: "Luis Mendez",  nota: 45 },
+  { id: 4, nombre: "Sofia Rios",   nota: 88 },
+  { id: 5, nombre: "Pedro Soto",   nota: 62 },
 ];
 
 const estudianteX = {
@@ -27,6 +27,7 @@ const inputNombre = document.getElementById("input-nombre");
 const inputNota = document.getElementById("input-nota");
 const btnAgregar = document.getElementById("btn-agregar");
 
+
 //Funciones
 const crearTarjeta = estudiante => {
     const [estado, clase] = estudiante.nota > 60 ? ["Aprobado", "aprobado"] : ["Reprobado", "reprobado"];
@@ -35,6 +36,7 @@ const crearTarjeta = estudiante => {
             <h2>${estudiante.nombre}</h2>
             <p>${estudiante.nota}</p>
             <p>${estado}</p>
+            <input type="button" value="Eliminar" id="eliminar[${estudiante.id}]" class="delete">
         </div>
     `;
     return tarjeta;
@@ -48,6 +50,12 @@ const renderizarLista = estudiantes => {
     seccionEstudiantes.innerHTML = listaTarjetas.join("");
 }
 
+const toFixedTrunc = (num, decimales) => {
+    const factor = Math.pow(10, decimales);
+    const truncado = Math.trunc(num * factor) / factor;
+    return truncado.toFixed(decimales);
+}
+
 const calcularPromedio = estudiantes => {
     const listaNotas = estudiantes.map(estudiante => {
         const nota = estudiante.nota;
@@ -56,7 +64,17 @@ const calcularPromedio = estudiantes => {
     const notasAcumuladas = listaNotas.reduce((persistent, num) => 
         persistent + num, 0
     );
-    return notasAcumuladas / estudiantes.length;
+    const notasFixed = toFixedTrunc(notasAcumuladas / estudiantes.length, 2)
+    return notasFixed;
+};
+
+const renderizarPromedio = promedio => {
+    const block = `
+        <p>
+            Promedio general: ${promedio}
+        </p>
+    `;
+    seccionPromedio.innerHTML = block;
 };
 
 //Eventos
@@ -79,8 +97,16 @@ btnReprobados.addEventListener("click", () => {
 
 btnPromedio.addEventListener("click", () => {
     seccionPromedio.style.display = "block";
-    calcularPromedio(listaEstudiantes);
+    const promedioGeneral = calcularPromedio(listaEstudiantes);
+    renderizarPromedio(promedioGeneral);
 });
+
+
+//Llamadas a funciones
+renderizarLista(listaEstudiantes);
+
+//Prueba
+let listaBtnsEliminar = document.getElementsByClassName("delete");
 
 btnAgregar.addEventListener("click", () => {
     if (inputNombre.value.length == 0 || inputNota.value.length == 0) {
@@ -98,8 +124,23 @@ btnAgregar.addEventListener("click", () => {
         nota: intInputNota
     };
     listaEstudiantes.push(nuevoEstudiante);
+    listaBtnsEliminar = document.getElementsByClassName("delete")
     renderizarLista(listaEstudiantes);
+    actualizarBtns(listaBtnsEliminar);
 });
 
-//Llamadas a funciones
-renderizarLista(listaEstudiantes);
+const actualizarBtns = lista => {
+    for (let i = 0; i < listaBtnsEliminar.length; i++) {
+        const btn = listaBtnsEliminar[i];
+        btn.addEventListener("click", () => {
+            const estudiantesRestantes = listaEstudiantes.filter(estudiante => {
+                const btnId = parseInt(btn.getAttribute("id").match(/()\d+/g));
+                return estudiante.id != btnId;
+            });
+            listaEstudiantes = estudiantesRestantes;
+            renderizarLista(listaEstudiantes);
+            actualizarBtns(listaBtnsEliminar);
+        });
+    };
+};
+actualizarBtns(listaBtnsEliminar);

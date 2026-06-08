@@ -72,3 +72,14 @@ input {
   border-radius: 6px;
   font-size: 1em;
 }
+.delete {
+  width: 100%;
+  margin-top: 2em;
+  cursor: pointer;
+  background-color: #e74c3c;
+  color: white;
+  font-weight: bold;
+}
+.delete:hover {
+  filter: brightness(80%);
+}
